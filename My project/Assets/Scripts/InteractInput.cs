@@ -3,14 +3,20 @@ using UnityEngine;
 
 public class InteractInput : MonoBehaviour
 {
-    [SerializeField] TMPro.TextMeshProUGUI textOnScreen;
-    TMPro.TextMeshProUGUI moneyText;
+    [SerializeField] TMPro.TextMeshProUGUI hoveringItemName;
+    Character character;
+    [SerializeField] TMPro.TextMeshProUGUI moneyText;
     [HideInInspector]
     public InteractableObject hoveringObject;
 
-    //private void Awake() { moneyText = ; }
+    private void Awake() 
+    { 
+        moneyText.text = 0.ToString();
+        character = GetComponent<Character>();
+    }
     void Update()
     {
+        moneyText.text = character.charMoney.ToString();
         CheckInteractableObjects();
         if (Input.GetMouseButtonDown(0))
         {
@@ -32,12 +38,12 @@ public class InteractInput : MonoBehaviour
             if (interactableObject != null)
             {
                 hoveringObject = interactableObject;
-                textOnScreen.text = hoveringObject.name;
+                hoveringItemName.text = hoveringObject.name;
             }
             else
             {
                 hoveringObject = null;
-                textOnScreen.text = "";
+                hoveringItemName.text = "";
             }
         }
     }
