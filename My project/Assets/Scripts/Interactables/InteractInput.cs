@@ -68,7 +68,7 @@ public class InteractInput : MonoBehaviour
     {
         if (hoveringObjectCharacter != null)
         {
-            hpBar.Show(hoveringObjectCharacter.healthPool);
+            hpBar.Show(hoveringObjectCharacter.GetStats(StatsType.Health));
         }
         else 
         {

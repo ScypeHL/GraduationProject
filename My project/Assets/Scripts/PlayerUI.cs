@@ -13,6 +13,6 @@ public class CharacterUI : MonoBehaviour
 
     private void Update()
     {
-        hpBar.Show(character.healthPool);
+        hpBar.Show(character.GetStats(StatsType.Health));
     }
 }

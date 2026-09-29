@@ -88,43 +88,29 @@ public class AttributeGroup
     }
 }
 
-public class ValuePool 
-{
-    public Stats maxValue;
-    public int currentValue;
-
-    public ValuePool(Stats MaxValue) 
-    { 
-        maxValue = MaxValue;
-        currentValue = maxValue.value;
-    }
-}
-
 public class Character : MonoBehaviour
 {
     public int charMoney;
     [SerializeField] AttributeGroup attributes;
     public StatsGroup statsGroup;
-    public ValuePool healthPool;
 
     private void Start()
     {
         attributes = new AttributeGroup();
         statsGroup = new StatsGroup();
-        healthPool = new ValuePool(statsGroup.statsValue[0]);
     }
 
     public void TakeDamage(int damage, int strength) 
     {
         int totalDamage = Math.Clamp(damage + strength - statsGroup.statsValue[(int)StatsType.Armor].value, 1, 9999);
-        healthPool.currentValue -= totalDamage;
-        Debug.Log("This did " + totalDamage + " damage!, Health: " + healthPool.currentValue.ToString());
+        statsGroup.statsValue[(int)StatsType.Health].value -= totalDamage;
+        Debug.Log("This did " + totalDamage + " damage!, Health: " + GetStats(StatsType.Health).value.ToString());
         IsDead();
     }
 
     private void IsDead() 
     {
-        if (healthPool.currentValue <= 0) 
+        if (GetStats(StatsType.Health).value <= 0) 
         {
             Debug.Log("Enemy Dead!");
         }
