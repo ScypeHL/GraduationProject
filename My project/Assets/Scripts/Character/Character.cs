@@ -6,20 +6,29 @@ public enum StatsType
 { 
     Health,
     Damage,
-    Armor
+    Armor,
+    AttackSpeed
 }
 
 [Serializable]
-public struct Stats 
+public class Stats 
 {
     public StatsType type;
     public int value;
     public int maxValue;
-    public Stats(StatsType _type, int _value = 0, int _maxValue = 9999) 
+    public bool isFloat;
+    public float fvalue;
+    public Stats(StatsType _type, int _value = 0, int _maxValue = 9999)
     { 
         value = _value;
         type = _type;
         maxValue = _maxValue;
+    }
+
+    public Stats(StatsType _type, float _fvalue = 0)
+    {
+        fvalue = _fvalue;
+        type = _type;
     }
 }
 
@@ -31,11 +40,11 @@ public enum AttributeType
 }
 
 [Serializable]
-public struct AttributeStruct
+public class Attribute
 {
     public AttributeType type;
     public int value;
-    public AttributeStruct(AttributeType _type, int _value = 0) 
+    public Attribute(AttributeType _type, int _value = 0) 
     { 
         value = _value;
         type = _type;
@@ -52,6 +61,7 @@ public class StatsGroup
         statsValue.Add(new Stats(StatsType.Health, 100, 100));
         statsValue.Add(new Stats(StatsType.Damage, 10));
         statsValue.Add(new Stats(StatsType.Armor, 5));
+        statsValue.Add(new Stats(StatsType.AttackSpeed, 2f));
     }
 
     internal Stats Get(StatsType targetStats) 
@@ -64,17 +74,29 @@ public class StatsGroup
 [Serializable]
 public class AttributeGroup
 {
-    public List<AttributeStruct> attributeValues;
+    public List<Attribute> attributeValues;
     public AttributeGroup() 
     {
-        attributeValues = new List<AttributeStruct>();
-        attributeValues.Add(new AttributeStruct(AttributeType.Strenght));
-        attributeValues.Add(new AttributeStruct(AttributeType.Vitality));
-        attributeValues.Add(new AttributeStruct(AttributeType.Intelligence));
+        attributeValues = new List<Attribute>();
+        attributeValues.Add(new Attribute(AttributeType.Strenght));
+        attributeValues.Add(new Attribute(AttributeType.Vitality));
+        attributeValues.Add(new Attribute(AttributeType.Intelligence));
     }
-    internal AttributeStruct Get(AttributeType type)
+    internal Attribute Get(AttributeType type)
     {
         return attributeValues[(int)type];
+    }
+}
+
+public class ValuePool 
+{
+    public Stats maxValue;
+    public int currentValue;
+
+    public ValuePool(Stats MaxValue) 
+    { 
+        maxValue = MaxValue;
+        currentValue = maxValue.value;
     }
 }
 
@@ -82,32 +104,32 @@ public class Character : MonoBehaviour
 {
     public int charMoney;
     [SerializeField] AttributeGroup attributes;
-    [SerializeField] StatsGroup statsGroup;
+    public StatsGroup statsGroup;
+    public ValuePool healthPool;
 
     private void Start()
     {
         attributes = new AttributeGroup();
         statsGroup = new StatsGroup();
+        healthPool = new ValuePool(statsGroup.statsValue[0]);
     }
 
     public void TakeDamage(int damage, int strength) 
     {
         int totalDamage = Math.Clamp(damage + strength - statsGroup.statsValue[(int)StatsType.Armor].value, 1, 9999);
-        int health = statsGroup.statsValue[(int)StatsType.Health].value;
-        health -= totalDamage;
-        statsGroup.statsValue[0] = new Stats(StatsType.Health, health);
-        Debug.Log("This did " + totalDamage + " damage!, Health: " + health);
+        healthPool.currentValue -= totalDamage;
+        Debug.Log("This did " + totalDamage + " damage!, Health: " + healthPool.currentValue.ToString());
         IsDead();
     }
 
     private void IsDead() 
     {
-        if (statsGroup.statsValue[0].value <= 0) 
+        if (healthPool.currentValue <= 0) 
         {
             Debug.Log("Enemy Dead!");
         }
     }
 
     public Stats GetStats(StatsType type) { return statsGroup.Get(type); }
-    public AttributeStruct GetAttribute(AttributeType type) { return attributes.Get(type); }
+    public Attribute GetAttribute(AttributeType type) { return attributes.Get(type); }
 }
