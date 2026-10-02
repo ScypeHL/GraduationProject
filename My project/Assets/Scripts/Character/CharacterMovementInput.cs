@@ -14,9 +14,10 @@ public class CharacterMovementInput : MonoBehaviour
 
     private void Update() 
     {
-        if (Input.GetMouseButtonDown(1))
-        {
-            characterMovement.SetDestination(mouseInput.mouseInputPos);
-        }
+    }
+
+    public void MoveCharacter() 
+    {
+        characterMovement.SetDestination(mouseInput.mouseInputPos);
     }
 }

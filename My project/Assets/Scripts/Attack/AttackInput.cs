@@ -10,15 +10,14 @@ public class AttackInput : MonoBehaviour
         interactInput = GetComponent<InteractInput>();
         attackHandler = GetComponent<AttackHandler>();
     }
-    // Update is called once per frame
-    void Update()
+
+    public void Attack() 
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (interactInput.hoveringObjectCharacter != null)
-            {
-                attackHandler.Attack(interactInput.hoveringObjectCharacter);
-            }
-        }
+        attackHandler.Attack(interactInput.hoveringObjectCharacter);
+    }
+
+    public bool AttackCheck() 
+    {
+        return interactInput.hoveringObjectCharacter != null;
     }
 }

@@ -5,44 +5,25 @@ public enum InteractableObjectType
 {
     ENEMY,
     POTION,
-    MONEY
+    MONEY,
+    PORTAL
 }
 
 public class InteractableObject : MonoBehaviour
 {
     [SerializeField] string massage;
     public InteractableObjectType type;
-    public string objectName;
 
     private void Start()
     {
-        objectName = transform.name;
     }
     public void Interact() 
     {
-        Debug.Log(massage);
-        /*
-        switch (target.type)
+        Debug.Log("This is not a portal");
+        if (type == InteractableObjectType.PORTAL & massage != "")
         {
-            case InteractableObjectType.MONEY:
-                Debug.Log("Heres your money!");
-                character.charMoney = character.charMoney + 1;
-                target = null;
-                break;
-
-            case InteractableObjectType.POTION:
-                break;
-
-            case InteractableObjectType.ENEMY:
-                Character targetStats = target.GetComponent<Character>();
-                charMovenent.Stop();
-
-                targetStats.TakeDamage(character.GetStats(StatsType.Damage).value, character.GetAttribute(AttributeType.Strenght).value);
-                animator.SetTrigger("attack");
-
-                targetStats = null;
-                target = null;
-                break;
-        }*/
+            GameSceneManager.instance.ExecuteTransition(massage);
+        }
+        else { }
     }
 }

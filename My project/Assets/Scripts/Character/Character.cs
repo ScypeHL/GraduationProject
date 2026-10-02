@@ -7,7 +7,8 @@ public enum StatsType
     Health,
     Damage,
     Armor,
-    AttackSpeed
+    AttackSpeed,
+    MoveSpeed
 }
 
 [Serializable]
@@ -59,9 +60,10 @@ public class StatsGroup
     {
         statsValue = new List<Stats>();
         statsValue.Add(new Stats(StatsType.Health, 100, 100));
-        statsValue.Add(new Stats(StatsType.Damage, 10));
+        statsValue.Add(new Stats(StatsType.Damage, 25));
         statsValue.Add(new Stats(StatsType.Armor, 5));
         statsValue.Add(new Stats(StatsType.AttackSpeed, 2f));
+        statsValue.Add(new Stats(StatsType.MoveSpeed, 3.5f));
     }
 
     internal Stats Get(StatsType targetStats) 
@@ -90,9 +92,11 @@ public class AttributeGroup
 
 public class Character : MonoBehaviour
 {
-    public int charMoney;
     [SerializeField] AttributeGroup attributes;
     public StatsGroup statsGroup;
+    public int charMoney;
+    public bool isDead;
+
 
     private void Start()
     {
@@ -112,8 +116,15 @@ public class Character : MonoBehaviour
     {
         if (GetStats(StatsType.Health).value <= 0) 
         {
-            Debug.Log("Enemy Dead!");
+            isDead = true;
+            GetComponent<CharacterDeathHandler>().Disable();
         }
+    }
+
+    internal void Restore()
+    {
+        statsGroup.statsValue[(int)StatsType.Health].value = GetStats(StatsType.Health).maxValue;
+        isDead = false;
     }
 
     public Stats GetStats(StatsType type) { return statsGroup.Get(type); }

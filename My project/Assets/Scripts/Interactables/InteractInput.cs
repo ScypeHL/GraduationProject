@@ -8,29 +8,54 @@ public class InteractInput : MonoBehaviour
     [SerializeField] UIPoolBar hpBar;
 
     Character character;
+    CharacterMovement charMovement;
+    
     [HideInInspector]
     public InteractableObject hoveringObject;
     GameObject currentlyHoveringObject;
+    
     [HideInInspector]
     public Character hoveringObjectCharacter;
-    
+    InteractableObject interactedObject;
+    [SerializeField] float interactionRange;
+
+
 
     private void Awake() 
-    { 
+    {
+        interactionRange = 3f;
         moneyText.text = 0.ToString();
         character = GetComponent<Character>();
+        charMovement = GetComponent<CharacterMovement>();
     }
     void Update()
     {
         moneyText.text = character.charMoney.ToString();
         CheckInteractableObjects();
-        if (Input.GetMouseButtonDown(0))
+        if (interactedObject != null) { ProcessInteract(); }
+    }
+
+    public void Interact() { interactedObject = hoveringObject; }
+
+    public void ProcessInteract()
+    {
+        float distance = Vector3.Distance(transform.position, interactedObject.transform.position);
+
+        if(distance < interactionRange)
         {
-            if (hoveringObject != null) 
-            {
-                hoveringObject.Interact();
-            }
+            interactedObject.Interact();
+            charMovement.Stop();
+            interactedObject = null;
         }
+        else
+        {
+            charMovement.SetDestination(interactedObject.transform.position);
+        }
+    }
+
+    public bool InteractCheck()
+    {
+        return hoveringObject != null;
     }
 
     private void CheckInteractableObjects()
