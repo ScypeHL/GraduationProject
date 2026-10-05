@@ -21,6 +21,9 @@ public class EnemyBehaviour : MonoBehaviour
     private void Update()
     {
         timer -= Time.deltaTime;
-        if (timer < 0f) { timer = 4f; attackHandler.Attack(target); }
+        if (8 > Vector3.Distance(GameManager.instance.player.transform.position, transform.position))
+        {
+            if (timer < 0f) { timer = 4f; attackHandler.Attack(target); }
+        }
     }
 }

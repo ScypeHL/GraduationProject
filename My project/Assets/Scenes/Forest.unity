@@ -672,6 +672,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4626830486217221488, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6053774673347656523, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
       propertyPath: type
       value: 2
@@ -882,6 +886,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2305384449622779591, guid: 6d8298ad6b29cee4e993035a681b0b95, type: 3}
   m_PrefabInstance: {fileID: 1338720482}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1556129625
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1556129627}
+  - component: {fileID: 1556129626}
+  m_Layer: 0
+  m_Name: CreeepSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1556129626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556129625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca94857aabe94ce47a758cf0d54b7e71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  enemyToSpawn: {fileID: 7597793414072369994}
+--- !u!4 &1556129627
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556129625}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.89, y: 0, z: 45.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1731853451
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1043,7 +1092,6 @@ MonoBehaviour:
       maxValue: 0
       isFloat: 0
       fvalue: 0
-  charMoney: 0
   isDead: 0
 --- !u!136 &1943302968897180381
 CapsuleCollider:
@@ -1350,3 +1398,4 @@ SceneRoots:
   - {fileID: 935083443}
   - {fileID: 613833701}
   - {fileID: 5882334334686438966}
+  - {fileID: 1556129627}

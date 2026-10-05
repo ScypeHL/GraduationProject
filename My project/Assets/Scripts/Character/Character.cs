@@ -94,7 +94,6 @@ public class Character : MonoBehaviour
 {
     [SerializeField] AttributeGroup attributes;
     public StatsGroup statsGroup;
-    public int charMoney;
     public bool isDead;
 
 

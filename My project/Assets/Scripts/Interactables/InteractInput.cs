@@ -6,57 +6,30 @@ public class InteractInput : MonoBehaviour
     [SerializeField] TMPro.TextMeshProUGUI hoverObjectTextUI;
     [SerializeField] TMPro.TextMeshProUGUI moneyText;
     [SerializeField] UIPoolBar hpBar;
-
-    Character character;
-    CharacterMovement charMovement;
     
     [HideInInspector]
     public InteractableObject hoveringObject;
     GameObject currentlyHoveringObject;
-    
-    [HideInInspector]
     public Character hoveringObjectCharacter;
-    InteractableObject interactedObject;
-    [SerializeField] float interactionRange;
 
+    InteractHandler interactHandler;
 
 
     private void Awake() 
     {
-        interactionRange = 3f;
-        moneyText.text = 0.ToString();
-        character = GetComponent<Character>();
-        charMovement = GetComponent<CharacterMovement>();
+        interactHandler = GetComponent<InteractHandler>();
     }
     void Update()
     {
-        moneyText.text = character.charMoney.ToString();
         CheckInteractableObjects();
-        if (interactedObject != null) { ProcessInteract(); }
-    }
-
-    public void Interact() { interactedObject = hoveringObject; }
-
-    public void ProcessInteract()
-    {
-        float distance = Vector3.Distance(transform.position, interactedObject.transform.position);
-
-        if(distance < interactionRange)
-        {
-            interactedObject.Interact();
-            charMovement.Stop();
-            interactedObject = null;
-        }
-        else
-        {
-            charMovement.SetDestination(interactedObject.transform.position);
-        }
     }
 
     public bool InteractCheck()
     {
         return hoveringObject != null;
     }
+
+    public void Interact() { interactHandler.interactedObject = hoveringObject; }
 
     private void CheckInteractableObjects()
     {
