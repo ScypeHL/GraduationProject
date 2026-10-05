@@ -17,11 +17,11 @@ public class CharacterMovement : MonoBehaviour
     private void Update()
     {
         agent.speed = character.GetStats(StatsType.MoveSpeed).fvalue;
-
+        /*
         if (Input.GetMouseButtonDown(0))
         {
             SetDestination(mouseInput.mouseInputPos);
-        }
+        }*/
     }
 
     public void SetDestination(Vector3 destinationPos) 
