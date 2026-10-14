@@ -17,7 +17,6 @@ public class Stats
     public StatsType type;
     public int value;
     public int maxValue;
-    public bool isFloat;
     public float fvalue;
     public Stats(StatsType _type, int _value = 0, int _maxValue = 9999)
     { 
@@ -56,14 +55,14 @@ public class Attribute
 public class StatsGroup 
 {
     public List<Stats> statsValue;
-    public StatsGroup()
+    public StatsGroup(int health, int damage, int armor, float attackSpeed, float moveSpeed)
     {
         statsValue = new List<Stats>();
-        statsValue.Add(new Stats(StatsType.Health, 100, 100));
-        statsValue.Add(new Stats(StatsType.Damage, 25));
-        statsValue.Add(new Stats(StatsType.Armor, 5));
-        statsValue.Add(new Stats(StatsType.AttackSpeed, 2f));
-        statsValue.Add(new Stats(StatsType.MoveSpeed, 3.5f));
+        statsValue.Add(new Stats(StatsType.Health, health, health));
+        statsValue.Add(new Stats(StatsType.Damage, damage));
+        statsValue.Add(new Stats(StatsType.Armor, armor));
+        statsValue.Add(new Stats(StatsType.AttackSpeed, attackSpeed));
+        statsValue.Add(new Stats(StatsType.MoveSpeed, moveSpeed));
     }
 
     internal Stats Get(StatsType targetStats) 
@@ -93,14 +92,20 @@ public class AttributeGroup
 public class Character : MonoBehaviour
 {
     [SerializeField] AttributeGroup attributes;
-    public StatsGroup statsGroup;
+    [HideInInspector] public StatsGroup statsGroup;
     public bool isDead;
+
+    public int Health;
+    public int Damage;
+    public int Armor = 0;
+    public float AttackSpeed;
+    public float MoveSpeed;
 
 
     private void Start()
     {
         attributes = new AttributeGroup();
-        statsGroup = new StatsGroup();
+        statsGroup = new StatsGroup(Health, Damage, Armor, AttackSpeed, MoveSpeed);
     }
 
     public void TakeDamage(int damage, int strength) 

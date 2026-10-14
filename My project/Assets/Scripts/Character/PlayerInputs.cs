@@ -8,6 +8,7 @@ public class PlayerInputs : MonoBehaviour
     AttackInput attackInput;
     InteractInput interactInput;
     InteractHandler interactHandler;
+    AbilityHitboxController hitbox;
 
     private void Awake()
     {
@@ -15,6 +16,7 @@ public class PlayerInputs : MonoBehaviour
         attackInput = GetComponent<AttackInput>();
         interactInput = GetComponent<InteractInput>();
         interactHandler = GetComponent<InteractHandler>();
+        hitbox = GetComponentInChildren<AbilityHitboxController>();
     }
 
     private void Update()
@@ -37,5 +39,10 @@ public class PlayerInputs : MonoBehaviour
             interactHandler.interactedObject = null;
             charMovInput.MoveCharacter(); 
         }
+        if (Input.GetKeyDown(KeyCode.Q)) { hitbox.ExecuteAbility(1); }
+        if (Input.GetKeyDown(KeyCode.W)) { }
+        if (Input.GetKeyDown(KeyCode.E)) { hitbox.ExecuteAbility(3); }
+        if (Input.GetKeyDown(KeyCode.R)) { hitbox.ExecuteAbility(4); }
+
     }
 }

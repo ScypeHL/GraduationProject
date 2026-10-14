@@ -3,7 +3,6 @@ using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-
     AttackHandler attackHandler;
     [SerializeField] Character target;
     float timer = 4f;

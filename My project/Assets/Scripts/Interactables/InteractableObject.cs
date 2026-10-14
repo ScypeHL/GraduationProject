@@ -7,12 +7,12 @@ public enum InteractableObjectType
     ENEMY,
     POTION,
     MONEY,
-    PORTAL
+    PORTAL,
+    NPC
 }
 
 public class InteractableObject : MonoBehaviour
 {
-    public event Action onTriggerEvent;
 
     [SerializeField] string massage;
     public InteractableObjectType type;
@@ -20,22 +20,20 @@ public class InteractableObject : MonoBehaviour
     private void Start()
     {
     }
+
     public void Interact(Inventory inv) 
     {
-        onTriggerEvent?.Invoke();
-        Debug.Log("This is not a portal");
-        if (type == InteractableObjectType.PORTAL & massage != "")
+        switch (type)
         {
-            GameSceneManager.instance.ExecuteTransition(massage);
-        }
-        else
-        {
-            switch (type)
-            {
-                case InteractableObjectType.MONEY:
-                    PickUpObject(inv);
-                    break;
-            }
+            case InteractableObjectType.PORTAL:
+                if (massage != "") { GameSceneManager.instance.ExecuteTransition(massage); }
+                break;
+            case InteractableObjectType.MONEY:
+                PickUpObject(inv);
+                break;
+            case InteractableObjectType.NPC:
+                Debug.Log("here");
+                break;
         }
     }
 
