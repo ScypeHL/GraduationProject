@@ -16,9 +16,12 @@ public class InteractableObject : MonoBehaviour
 
     [SerializeField] string massage;
     public InteractableObjectType type;
+    UIPanelManager panelManager;
+    [SerializeField] NPCBehaviour npcBehaviour;
 
     private void Start()
     {
+        panelManager = GameManager.instance.GetComponent<UIPanelManager>();
     }
 
     public void Interact(Inventory inv) 
@@ -32,7 +35,12 @@ public class InteractableObject : MonoBehaviour
                 PickUpObject(inv);
                 break;
             case InteractableObjectType.NPC:
-                Debug.Log("here");
+                if (npcBehaviour.isInteracting == false)
+                {
+                    npcBehaviour.isInteracting = true;
+                    panelManager.OpenTextBubble();
+                    npcBehaviour.Story();
+                }
                 break;
         }
     }

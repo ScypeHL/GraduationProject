@@ -22,23 +22,23 @@ public class PlayerInputs : MonoBehaviour
     private void Update()
     {
         if (EventSystem.current.IsPointerOverGameObject()) { return; }
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (attackInput.AttackCheck())
+            if (Input.GetMouseButtonDown(0))
             {
-                attackInput.Attack();
-                return;
-            }
+                if (attackInput.AttackCheck())
+                {
+                    attackInput.Attack();
+                    return;
+                }
 
-            if (interactInput.InteractCheck())
-            {
-                interactInput.Interact();
-                return;
-            }
+                if (interactInput.InteractCheck())
+                {
+                    interactInput.Interact();
+                    return;
+                }
 
-            interactHandler.interactedObject = null;
-            charMovInput.MoveCharacter(); 
-        }
+                interactHandler.interactedObject = null;
+                charMovInput.MoveCharacter(); 
+            }
         if (Input.GetKeyDown(KeyCode.Q)) { hitbox.ExecuteAbility(1); }
         if (Input.GetKeyDown(KeyCode.W)) { }
         if (Input.GetKeyDown(KeyCode.E)) { hitbox.ExecuteAbility(3); }

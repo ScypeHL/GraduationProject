@@ -46,8 +46,8 @@ public class AbilityHitboxController : MonoBehaviour
                 break;
         }
 
-        collider.size = new Vector3(ability.h, collider.size.y, ability.w);
-        collider.center = new Vector3(collider.center.x, collider.size.y, ability.w / 2);
+        collider.size = new Vector3(ability.w, collider.size.y, ability.h);
+        collider.center = new Vector3(collider.center.x, collider.size.y, ability.h / 2);
         collider.enabled = true;
     }
 

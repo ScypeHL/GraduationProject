@@ -9,6 +9,7 @@ public class GameSceneManager : MonoBehaviour
     [SerializeField] string activeScene;
     AsyncOperation load;
     AsyncOperation unload;
+    [SerializeField] GameObject player;
 
     private void Awake()
     {
@@ -41,6 +42,7 @@ public class GameSceneManager : MonoBehaviour
         }
         load = null;
         unload = null;
+        player.transform.position = Vector3.zero;
     }
 
     public void SwitchScenes(string dest) 

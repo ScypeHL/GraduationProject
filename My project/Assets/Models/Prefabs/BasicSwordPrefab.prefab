@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 760283280461374038}
   - component: {fileID: 1415866745725087581}
   m_Layer: 5
-  m_Name: ItemPrefab
+  m_Name: BasicSwordPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6278366323996076236, guid: 05828596a13d2414e97a66469a2b710a, type: 3}
+  m_Sprite: {fileID: 6555056440475222661, guid: 1048e3b594ea2fb4a9d91f2166973878, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

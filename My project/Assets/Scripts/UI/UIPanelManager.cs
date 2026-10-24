@@ -7,14 +7,13 @@ public class UIPanelManager : MonoBehaviour
     [SerializeField] GameObject invPanel;
     [SerializeField] GameObject questPanel;
     [SerializeField] GameObject statPanel;
-    [SerializeField] GameObject textBubble;
+    public GameObject textBubble;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.I)) { OpenInventoryPanel(); }
         if (Input.GetKeyDown(KeyCode.K)) { OpenStatPanel(); }
         if (Input.GetKeyDown(KeyCode.L)) { OpenQuestPanel(); }
-        if (Input.GetKeyDown(KeyCode.N)) { OpenTextBubble(); }
     }
 
     public void OpenInventoryPanel() { invPanel.SetActive(!invPanel.activeInHierarchy); questPanel.SetActive(false); }

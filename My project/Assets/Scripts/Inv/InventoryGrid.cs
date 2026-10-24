@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.TerrainTools;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -15,13 +17,14 @@ public class InventoryGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     RectTransform rectTransform;
     Vector2 mouseGridPos;
-    
+
+    [SerializeField] RectTransform highlight;
     Vector2Int selectedCell;
     InventoryItem selectedItem;
+    RectTransform selectedItemRect;
 
     InventoryItem[,] itemMap;
-
-    [SerializeField] GameObject itemPrefab;
+    [SerializeField] List<GameObject> itemPrefab;
 
 
     private void Awake()
@@ -31,12 +34,14 @@ public class InventoryGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     private void Start()
     {
+        highlight.SetParent(rectTransform);
+
         InitGrid(GRID_WIDTH, GRID_HEIGHT);
-        GameObject itemTest = Instantiate(itemPrefab);
+        GameObject itemTest = Instantiate(itemPrefab[0]);
         InventoryItem inventoryItemTest = itemTest.GetComponent<InventoryItem>();
         PlaceItem(inventoryItemTest, 3, 2);
 
-        GameObject itemTest2 = Instantiate(itemPrefab);
+        GameObject itemTest2 = Instantiate(itemPrefab[1]);
         InventoryItem inventoryItemTest2 = itemTest2.GetComponent<InventoryItem>();
         PlaceItem(inventoryItemTest2, 1, 1);
     }
@@ -45,17 +50,27 @@ public class InventoryGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         if (activationTrigger)
         {
+
+            highlight.localPosition = new Vector3(
+                ((int)((Input.mousePosition.x - rectTransform.position.x) / SPRITE_WIDTH)) * SPRITE_HEIGHT,
+                ((int)((Input.mousePosition.y - rectTransform.position.y) / SPRITE_HEIGHT)) * SPRITE_HEIGHT, 
+                highlight.localPosition.z);
+
+            if (selectedItemRect != null) { selectedItemRect.position = Input.mousePosition; }
             if (Input.GetMouseButtonDown(0))
             {
                 selectedCell = GetCellPos(Input.mousePosition);
                 if (selectedItem == null)
                 {
                     selectedItem = PickUpItem(selectedCell.x, selectedCell.y);
+                    selectedItemRect = selectedItem.GetComponent<RectTransform>();
                 }
                 else
                 {
+                    if (itemMap[selectedCell.x, selectedCell.y] != null) { return; }
                     PlaceItem(selectedItem, selectedCell.x, selectedCell.y);
                     selectedItem = null;
+                    selectedItemRect = null;
                 }
             }
         }
@@ -80,8 +95,17 @@ public class InventoryGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         return cell;
     }
 
+    private Vector2 GetCellCoor(int column, int row)
+    {
+        Vector2 coor = new Vector2();
+        coor.x = SPRITE_WIDTH * column + (SPRITE_WIDTH / 2);
+        coor.y = -(SPRITE_HEIGHT * row + (SPRITE_HEIGHT / 2));
+        return coor;
+    }
+
     public void PlaceItem(InventoryItem item, int posx, int posy)
     {
+        if (!IsWithinBoundry(posx, posy)) { return; }
         RectTransform itemRectTransform = item.GetComponent<RectTransform>();
         itemRectTransform.SetParent(transform);
 
@@ -98,6 +122,17 @@ public class InventoryGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         InventoryItem pickedItem = itemMap[posx, posy];
         itemMap[posx, posy] = null;
         return pickedItem;
+    }
+
+    private bool IsWithinBoundry(int x, int y)
+    {
+        if (x < 0 || y < 0) return false;
+        if (x >= GRID_WIDTH || y >= GRID_HEIGHT) return false;
+        else return true;
+    }
+
+    private void HighlightCell()
+    {
     }
 
     public void OnPointerEnter(PointerEventData eventData){activationTrigger = true;}
