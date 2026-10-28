@@ -2,14 +2,13 @@ using UnityEngine;
 
 public class SpawnerController : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject enemyToSpawn;
-    private float rangeWindow;
-    
+    [SerializeField] private GameObject enemyToSpawn;
+    [SerializeField] float rangeWindow;
+    [SerializeField] int amount;
+
     void Start()
-    {
-        rangeWindow = 3.5f;
-        Spawn(3);
+    {;
+        Spawn(amount);
     }
 
     private void Spawn(int amount) 

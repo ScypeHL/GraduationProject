@@ -696,6 +696,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   enemyToSpawn: {fileID: 518738512}
+  rangeWindow: 2
+  amount: 3
 --- !u!4 &1206541401
 Transform:
   m_ObjectHideFlags: 0

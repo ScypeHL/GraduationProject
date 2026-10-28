@@ -1,5 +1,6 @@
 using Mono.Cecil;
 using UnityEngine;
+using static Animate;
 
 public class AttackHandler : MonoBehaviour
 {
@@ -7,8 +8,7 @@ public class AttackHandler : MonoBehaviour
     [SerializeField] float attackTime = 2f;
     float attackTimer;
 
-
-    Animator animator;
+    Animate animate;
     CharacterMovement charMovenent;
     Character character;
 
@@ -16,7 +16,7 @@ public class AttackHandler : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponentInChildren<Animator>();
+        animate = GetComponentInChildren<Animate>();
         charMovenent = GetComponent<CharacterMovement>();
         character = GetComponent<Character>();
     }
@@ -30,7 +30,7 @@ public class AttackHandler : MonoBehaviour
     private void Update()
     {
         AttackTimer();
-        if (target != null)
+        if (target != null && character.isDead == false)
         {
             ProcessAttack();
         }
@@ -46,14 +46,14 @@ public class AttackHandler : MonoBehaviour
         float distance = Vector3.Distance(transform.position, target.transform.position);
         if (distance < attackRange)
         {
-            if (attackTimer > 0f) { return; }
+            if (attackTimer > 0f) { target = null; return; }
 
             attackTimer = attackTime / character.GetStats(StatsType.AttackSpeed).fvalue;
 
             charMovenent.Stop();
 
             target.TakeDamage(character.GetStats(StatsType.Damage).value, character.GetAttribute(AttributeType.Strenght).value);
-            animator.SetTrigger("attack");
+            animate.play_attack(AttackType.AUTO_ATTACK);
 
             target = null;
         }

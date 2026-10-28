@@ -7,11 +7,13 @@ public class InteractHandler : MonoBehaviour
     [SerializeField] float interactionRange;
     public InteractableObject hoveringObject;
     Inventory inventory;
+    Character character;
 
     private void Awake()
     {
         charMovement = GetComponent<CharacterMovement>();
         inventory = GetComponent<Inventory>();
+        character = GetComponent<Character>();
     }
 
     void Start()
@@ -21,7 +23,7 @@ public class InteractHandler : MonoBehaviour
 
     void Update()
     {
-        if (interactedObject != null) { ProcessInteract(); }
+        if (interactedObject != null && character.isDead == false) { ProcessInteract(); }
     }
 
     public void ProcessInteract()

@@ -624,7 +624,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4192237917386087586, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 82.6
+      value: 88.8
       objectReference: {fileID: 0}
     - target: {fileID: 4192237917386087586, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
       propertyPath: m_LocalRotation.w
@@ -664,7 +664,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6053774673347656523, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
       propertyPath: massage
-      value: Bridges
+      value: Village
       objectReference: {fileID: 0}
     - target: {fileID: 7683729162374011532, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
       propertyPath: m_Enabled
@@ -872,6 +872,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   enemyToSpawn: {fileID: 7597793414072369994}
+  rangeWindow: 3
+  amount: 3
 --- !u!4 &1556129627
 Transform:
   m_ObjectHideFlags: 0

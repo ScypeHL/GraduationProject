@@ -1,6 +1,15 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum AttackType
+{
+    AUTO_ATTACK,
+    Q_ATTACK,
+    W_ATTACK,
+    E_ATTACK,
+    R_ATTACK
+}
+
 public class Animate : MonoBehaviour
 {
     Animator animator;
@@ -16,8 +25,21 @@ public class Animate : MonoBehaviour
 
     private void Update()
     {
-        float motion = agent.velocity.magnitude;
-        animator.SetFloat("motion", motion);
-        animator.SetBool("death", character.isDead);
+        if (character.isDead == false)
+        {
+            float motion = agent.velocity.magnitude;
+            animator.SetFloat("motion", motion);
+        }
+        else 
+        {
+            animator.SetBool("death", character.isDead);
+        }
+    }
+
+    public void play_attack(AttackType type) 
+    {
+        animator.SetInteger("attackID", (int)type);
+        print(animator.GetInteger("attackID"));
+        animator.SetTrigger("attack");
     }
 }

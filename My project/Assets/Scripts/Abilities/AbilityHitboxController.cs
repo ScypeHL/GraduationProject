@@ -1,9 +1,10 @@
-using UnityEditor.ShaderGraph.Internal;
-using UnityEngine;
 using System.Collections;
-using Unity.VisualScripting;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Unity.VisualScripting;
+using UnityEditor.ShaderGraph.Internal;
+using UnityEngine;
+using static Animate;
 
 public class AbilityHitboxController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class AbilityHitboxController : MonoBehaviour
     
     Character enemycharacter;
     Character character;
+    Animate animate;
 
     AbilityList abilities;
     AbilityList.Ability ability;
@@ -18,6 +20,7 @@ public class AbilityHitboxController : MonoBehaviour
     void Start()
     {
         abilities = new AbilityList();
+        animate = GetComponentInParent<Animate>();
         character = GetComponentInParent<Character>();
         
         collider = GetComponent<BoxCollider>();
@@ -45,10 +48,13 @@ public class AbilityHitboxController : MonoBehaviour
                 ability = abilities.melee_ab4;
                 break;
         }
+        animate.play_attack((AttackType)id);
 
         collider.size = new Vector3(ability.w, collider.size.y, ability.h);
         collider.center = new Vector3(collider.center.x, collider.size.y, ability.h / 2);
         collider.enabled = true;
+
+        
     }
 
     void OnCollisionEnter(Collision collision)
