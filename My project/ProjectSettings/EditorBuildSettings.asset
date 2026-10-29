@@ -14,5 +14,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Village.unity
     guid: ef1e98a80beee94418d4e64eabd96cb8
+  - enabled: 1
+    path: Assets/Scenes/Bridges.unity
+    guid: 702c3fa6c9bff99418d2d1344a7cdd8d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

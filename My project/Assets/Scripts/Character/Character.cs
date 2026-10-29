@@ -122,6 +122,8 @@ public class Character : MonoBehaviour
         {
             isDead = true;
             GetComponent<CharacterDeathHandler>().Disable();
+            while (GetComponent<Animate>().is_playing("Death")) print("waiting for death\n");
+            if (GetComponent<PlayerInputs>() == null) Destroy(gameObject);
         }
     }
 

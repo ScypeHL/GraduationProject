@@ -5,6 +5,12 @@ using UnityEditor.TerrainTools;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+public enum InventoryGridState 
+{
+    DEFAULT,
+    RIGHT_CLICK
+}
+
 public class InventoryGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     const float SPRITE_WIDTH = 64f;
@@ -22,6 +28,12 @@ public class InventoryGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     Vector2Int selectedCell;
     InventoryItem selectedItem;
     RectTransform selectedItemRect;
+
+    public InventoryGridState state = InventoryGridState.DEFAULT;
+
+    [SerializeField] GameObject armorCell;
+    [SerializeField] GameObject weaponCell;
+    [SerializeField] GameObject hoodCell;
 
     InventoryItem[,] itemMap;
     [SerializeField] List<GameObject> itemPrefab;
@@ -48,7 +60,7 @@ public class InventoryGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     private void Update()
     {
-        if (activationTrigger)
+        if (activationTrigger && state == InventoryGridState.DEFAULT)
         {
 
             highlight.localPosition = new Vector3(
@@ -119,9 +131,13 @@ public class InventoryGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public InventoryItem PickUpItem(int posx, int posy)
     {
-        InventoryItem pickedItem = itemMap[posx, posy];
-        itemMap[posx, posy] = null;
-        return pickedItem;
+        if (!IsWithinBoundry(posx, posy)) { return null; }
+        else
+        {
+            InventoryItem pickedItem = itemMap[posx, posy];
+            itemMap[posx, posy] = null;
+            return pickedItem;
+        }
     }
 
     private bool IsWithinBoundry(int x, int y)
@@ -131,8 +147,36 @@ public class InventoryGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         else return true;
     }
 
-    private void HighlightCell()
+    public bool is_there_item(Vector3 mousePosition) 
     {
+        Vector2Int cell = GetCellPos(Input.mousePosition);
+        if (itemMap[cell.x, cell.y] != null) { selectedCell = GetCellPos(Input.mousePosition); return true; }
+        else { selectedCell = GetCellPos(Input.mousePosition); return false; }
+    }
+
+    public void equip_item() 
+    {
+        selectedItem = PickUpItem(selectedCell.x, selectedCell.y);
+        selectedItemRect = selectedItem.GetComponent<RectTransform>();
+
+        switch (selectedItem.type) 
+        {
+            case CellType.ARMOUR:
+                selectedItemRect.transform.position = new Vector3(armorCell.transform.position.x, armorCell.transform.position.y, 1);
+                break;
+            case CellType.HOOD:
+                selectedItemRect.transform.position = new Vector3(hoodCell.transform.position.x, hoodCell.transform.position.y, 1);
+                break;
+            case CellType.WEAPON:
+                selectedItemRect.transform.position = new Vector3(weaponCell.transform.position.x, weaponCell.transform.position.y, 1);
+                break;
+            default: print("Leaked out in Inventory Grid > equip_item()\n"); 
+                break;
+        }
+        print(selectedItemRect.transform.position);
+        selectedItem = null;
+        selectedItemRect = null;
+        UIPanelManager.instance.OpenRightClickMenu();
     }
 
     public void OnPointerEnter(PointerEventData eventData){activationTrigger = true;}

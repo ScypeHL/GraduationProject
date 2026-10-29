@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -41,5 +42,14 @@ public class Animate : MonoBehaviour
         animator.SetInteger("attackID", (int)type);
         print(animator.GetInteger("attackID"));
         animator.SetTrigger("attack");
+    }
+
+    public bool is_playing(string name) 
+    {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName(name)
+            && animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        {
+            return true;
+        } else return false;
     }
 }

@@ -1,8 +1,9 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using System.Collections.Generic;
+using NUnit.Framework.Internal;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class GameSceneManager : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class GameSceneManager : MonoBehaviour
     private void Start()
     {
         activeScene = "Village";
+        //SceneManager.LoadSceneAsync(activeScene, LoadSceneMode.Additive);
     }
 
     public void ExecuteTransition(string dest) 
