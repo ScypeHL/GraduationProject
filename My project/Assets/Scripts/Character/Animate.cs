@@ -40,7 +40,6 @@ public class Animate : MonoBehaviour
     public void play_attack(AttackType type) 
     {
         animator.SetInteger("attackID", (int)type);
-        print(animator.GetInteger("attackID"));
         animator.SetTrigger("attack");
     }
 

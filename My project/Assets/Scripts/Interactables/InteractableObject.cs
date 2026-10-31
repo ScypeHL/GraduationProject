@@ -38,6 +38,7 @@ public class InteractableObject : MonoBehaviour
                 if (npcBehaviour.isInteracting == false)
                 {
                     npcBehaviour.isInteracting = true;
+                    npcBehaviour.index = 0;
                     panelManager.OpenTextBubble();
                     npcBehaviour.Story();
                 }

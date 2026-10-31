@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public enum StatsType 
 { 
@@ -8,7 +9,8 @@ public enum StatsType
     Damage,
     Armor,
     AttackSpeed,
-    MoveSpeed
+    MoveSpeed,
+    XP
 }
 
 [Serializable]
@@ -55,7 +57,7 @@ public class Attribute
 public class StatsGroup 
 {
     public List<Stats> statsValue;
-    public StatsGroup(int health, int damage, int armor, float attackSpeed, float moveSpeed)
+    public StatsGroup(int health, int damage, int armor, float attackSpeed, float moveSpeed, int xp)
     {
         statsValue = new List<Stats>();
         statsValue.Add(new Stats(StatsType.Health, health, health));
@@ -63,11 +65,22 @@ public class StatsGroup
         statsValue.Add(new Stats(StatsType.Armor, armor));
         statsValue.Add(new Stats(StatsType.AttackSpeed, attackSpeed));
         statsValue.Add(new Stats(StatsType.MoveSpeed, moveSpeed));
+        statsValue.Add(new Stats(StatsType.XP, xp, 100));
     }
 
     internal Stats Get(StatsType targetStats) 
     {
         return statsValue[(int)targetStats];
+    }
+
+    internal void Set(StatsType targetStats, int value) 
+    {
+         statsValue[(int)targetStats].value = value;
+    }
+
+    internal void Set(StatsType targetStats, float value)
+    {
+        statsValue[(int)targetStats].fvalue = value;
     }
 }
 
@@ -100,19 +113,19 @@ public class Character : MonoBehaviour
     public int Armor = 0;
     public float AttackSpeed;
     public float MoveSpeed;
+    public int XP;
 
 
     private void Start()
     {
         attributes = new AttributeGroup();
-        statsGroup = new StatsGroup(Health, Damage, Armor, AttackSpeed, MoveSpeed);
+        statsGroup = new StatsGroup(Health, Damage, Armor, AttackSpeed, MoveSpeed, XP);
     }
 
     public void TakeDamage(int damage, int strength) 
     {
         int totalDamage = Math.Clamp(damage + strength - statsGroup.statsValue[(int)StatsType.Armor].value, 1, 9999);
         statsGroup.statsValue[(int)StatsType.Health].value -= totalDamage;
-        Debug.Log("This did " + totalDamage + " damage!, Health: " + GetStats(StatsType.Health).value.ToString());
         IsDead();
     }
 
@@ -131,6 +144,16 @@ public class Character : MonoBehaviour
     {
         statsGroup.statsValue[(int)StatsType.Health].value = GetStats(StatsType.Health).maxValue;
         isDead = false;
+    }
+
+    public void add_xp(Character target)
+    {
+        statsGroup.statsValue[(int)StatsType.XP].value += target.statsGroup.statsValue[(int)StatsType.XP].value;
+        print(GetStats(StatsType.XP).value);
+        if (GetStats(StatsType.XP).value > GetStats(StatsType.XP).maxValue) 
+        {
+            statsGroup.statsValue[(int)StatsType.XP].value = 0;
+        }
     }
 
     public Stats GetStats(StatsType type) { return statsGroup.Get(type); }

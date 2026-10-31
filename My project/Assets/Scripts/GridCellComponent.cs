@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public enum CellType 
 {
@@ -7,13 +8,33 @@ public enum CellType
     WEAPON
 }
 
-public class GridCellComponent : MonoBehaviour
+public class GridCellComponent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    bool isOccupied = false;
+    public bool isOccupied = false;
+    bool isMouseHoverinOnto = false;
     public CellType type;
+    public InventoryItem item;
+    InventoryGrid grid;
+    GridCellComponent self;
 
     private void Start()
     {
-        
+        grid = FindAnyObjectByType<InventoryGrid>();
+        self = GetComponent<GridCellComponent>();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        isMouseHoverinOnto = true;
+    }
+
+    public bool interact() 
+    {
+        return isMouseHoverinOnto;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        isMouseHoverinOnto = false;
     }
 }

@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using Unity.VisualScripting;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using static AbilityList;
 using static Animate;
 
 public class AbilityHitboxController : MonoBehaviour
@@ -15,7 +16,8 @@ public class AbilityHitboxController : MonoBehaviour
     Animate animate;
 
     AbilityList abilities;
-    AbilityList.Ability ability;
+    Ability ability;
+
 
     void Start()
     {
@@ -29,10 +31,13 @@ public class AbilityHitboxController : MonoBehaviour
         collider.enabled = false;
     }
 
+    private void Update() 
+    {
+        abilities.apply_cooldown_reduction();
+    }
+
     public void ExecuteAbility(int id)
     {
-        Debug.Log("Resize!");
-
         switch (id)
         {
             case 1:
@@ -48,13 +53,15 @@ public class AbilityHitboxController : MonoBehaviour
                 ability = abilities.melee_ab4;
                 break;
         }
-        animate.play_attack((AttackType)id);
+        if (ability.cooldownRemain <= 0)
+        {
+            animate.play_attack((AttackType)id);
 
-        collider.size = new Vector3(ability.w, collider.size.y, ability.h);
-        collider.center = new Vector3(collider.center.x, collider.size.y, ability.h / 2);
-        collider.enabled = true;
-
-        
+            abilities.set_cooldown_remain(ability);
+            collider.size = new Vector3(ability.w, collider.size.y, ability.h);
+            collider.center = new Vector3(collider.center.x, collider.size.y, ability.h / 2);
+            collider.enabled = true;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -67,6 +74,12 @@ public class AbilityHitboxController : MonoBehaviour
                 (int)(character.GetStats(StatsType.Damage).value * ability.damageScale), 
                 character.GetAttribute(AttributeType.Strenght).value); 
         }
+        collider.enabled = false;
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        enemycharacter = null;
         collider.enabled = false;
     }
 }

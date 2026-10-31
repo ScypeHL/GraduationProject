@@ -12,7 +12,7 @@ public class AttackHandler : MonoBehaviour
     CharacterMovement charMovenent;
     Character character;
 
-    Character target;
+    public Character target;
 
     private void Awake()
     {
@@ -29,9 +29,14 @@ public class AttackHandler : MonoBehaviour
 
     private void Update()
     {
+        if (target != null && target.isDead == true)
+        {
+            character.add_xp(target);
+        }
         AttackTimer();
         if (target != null && character.isDead == false)
         {
+            print(target.isDead);
             ProcessAttack();
         }
     }

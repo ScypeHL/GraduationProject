@@ -34,7 +34,13 @@ public class UIPanelManager : MonoBehaviour
     public void OpenRightClickMenu() 
     {
         if (invGrid.state == InventoryGridState.DEFAULT)
-        {
+        {/*
+            if (invGrid.weaponCell.GetComponent<GridCellComponent>().interact()) 
+            {
+                invGrid.state = InventoryGridState.RIGHT_CLICK;
+                rightClickMenu.transform.position = new Vector3(Input.mousePosition.x + 96, Input.mousePosition.y - 24, 0);
+                rightClickMenu.SetActive(true);
+            }*/
             if (invGrid.is_there_item(Input.mousePosition))
             {
                 invGrid.state = InventoryGridState.RIGHT_CLICK;
@@ -43,5 +49,10 @@ public class UIPanelManager : MonoBehaviour
             }
         }
         else { invGrid.state = InventoryGridState.DEFAULT; rightClickMenu.SetActive(false); }
+    }
+    public void CloseRightClickMenu() 
+    {
+        invGrid.state = InventoryGridState.DEFAULT;
+        rightClickMenu.SetActive(false);
     }
 }

@@ -195,7 +195,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1597556984902082698, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4192237917386087586, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
       propertyPath: m_LocalPosition.x
@@ -299,6 +299,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCBehaviour
   text: {fileID: 0}
   isInteracting: 0
+  index: 0
+  path: 
 --- !u!4 &336377285 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4192237917386087586, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
@@ -531,7 +533,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1597556984902082698, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4192237917386087586, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
       propertyPath: m_LocalPosition.x
@@ -635,6 +637,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCBehaviour
   text: {fileID: 0}
   isInteracting: 0
+  index: 0
+  path: 
 --- !u!4 &747143121 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4192237917386087586, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
@@ -792,6 +796,7 @@ MonoBehaviour:
   Armor: 0
   AttackSpeed: 4
   MoveSpeed: 3
+  XP: 20
 --- !u!114 &787662408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,6 +811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   attackRange: 1
   attackTime: 2
+  target: {fileID: 0}
 --- !u!114 &787662409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1092,7 +1098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   enemyToSpawn: {fileID: 787662403}
-  rangeWindow: 3.5
+  rangeWindow: 2
   amount: 3
 --- !u!4 &931434774
 Transform:
@@ -1103,7 +1109,7 @@ Transform:
   m_GameObject: {fileID: 931434772}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -27.59, y: 0.5, z: -24.2}
+  m_LocalPosition: {x: -40.59, y: 0.5, z: -24.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1452,7 +1458,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4192237917386087586, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.94
+      value: -51.2
       objectReference: {fileID: 0}
     - target: {fileID: 4192237917386087586, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1460,7 +1466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4192237917386087586, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -12.22
+      value: -25.98
       objectReference: {fileID: 0}
     - target: {fileID: 4192237917386087586, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1552,6 +1558,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCBehaviour
   text: {fileID: 0}
   isInteracting: 0
+  index: 0
+  path: Assets\Scripts\NPC\VillagerF4Dialogue.txt
 --- !u!4 &1163137653 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4192237917386087586, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
@@ -1643,7 +1651,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1597556984902082698, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4192237917386087586, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1747,6 +1755,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCBehaviour
   text: {fileID: 0}
   isInteracting: 0
+  index: 0
+  path: 
 --- !u!4 &1693387968 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4192237917386087586, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
@@ -1766,7 +1776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1597556984902082698, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4192237917386087586, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1870,6 +1880,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCBehaviour
   text: {fileID: 0}
   isInteracting: 0
+  index: 0
+  path: 
 --- !u!4 &1771062110 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4192237917386087586, guid: 6cd9c67568e928d41a84d57742e5e562, type: 3}

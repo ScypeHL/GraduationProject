@@ -31,9 +31,10 @@ public class InventoryGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public InventoryGridState state = InventoryGridState.DEFAULT;
 
-    [SerializeField] GameObject armorCell;
-    [SerializeField] GameObject weaponCell;
-    [SerializeField] GameObject hoodCell;
+    public GameObject armorCell;
+    public GameObject weaponCell;
+    public GameObject hoodCell;
+    GridCellComponent selectedEquipCell;
 
     InventoryItem[,] itemMap;
     [SerializeField] List<GameObject> itemPrefab;
@@ -107,14 +108,6 @@ public class InventoryGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         return cell;
     }
 
-    private Vector2 GetCellCoor(int column, int row)
-    {
-        Vector2 coor = new Vector2();
-        coor.x = SPRITE_WIDTH * column + (SPRITE_WIDTH / 2);
-        coor.y = -(SPRITE_HEIGHT * row + (SPRITE_HEIGHT / 2));
-        return coor;
-    }
-
     public void PlaceItem(InventoryItem item, int posx, int posy)
     {
         if (!IsWithinBoundry(posx, posy)) { return; }
@@ -149,34 +142,75 @@ public class InventoryGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public bool is_there_item(Vector3 mousePosition) 
     {
-        Vector2Int cell = GetCellPos(Input.mousePosition);
-        if (itemMap[cell.x, cell.y] != null) { selectedCell = GetCellPos(Input.mousePosition); return true; }
-        else { selectedCell = GetCellPos(Input.mousePosition); return false; }
+        if (armorCell.GetComponent<GridCellComponent>().item != null) { return true; }
+        else if (hoodCell.GetComponent<GridCellComponent>().item != null) { return true; }
+        else if (weaponCell.GetComponent<GridCellComponent>().item != null) { return true; }
+        else 
+        {
+            Vector2Int cell = GetCellPos(Input.mousePosition);
+            if (itemMap[cell.x, cell.y] != null) { selectedCell = GetCellPos(Input.mousePosition); return true; }
+            else { selectedCell = GetCellPos(Input.mousePosition); return false; }
+        }
     }
 
     public void equip_item() 
     {
         selectedItem = PickUpItem(selectedCell.x, selectedCell.y);
         selectedItemRect = selectedItem.GetComponent<RectTransform>();
+        set_cell_type(selectedItem);
 
-        switch (selectedItem.type) 
-        {
-            case CellType.ARMOUR:
-                selectedItemRect.transform.position = new Vector3(armorCell.transform.position.x, armorCell.transform.position.y, 1);
-                break;
-            case CellType.HOOD:
-                selectedItemRect.transform.position = new Vector3(hoodCell.transform.position.x, hoodCell.transform.position.y, 1);
-                break;
-            case CellType.WEAPON:
-                selectedItemRect.transform.position = new Vector3(weaponCell.transform.position.x, weaponCell.transform.position.y, 1);
-                break;
-            default: print("Leaked out in Inventory Grid > equip_item()\n"); 
-                break;
-        }
-        print(selectedItemRect.transform.position);
+        selectedItemRect.transform.position = new Vector3
+            (selectedEquipCell.transform.position.x, 
+            selectedEquipCell.transform.position.y,
+            1);
+        
+        selectedEquipCell.item = selectedItem;
+        print(selectedEquipCell.item);
+
         selectedItem = null;
         selectedItemRect = null;
         UIPanelManager.instance.OpenRightClickMenu();
+    }
+
+    public void unequip_item()
+    {
+        for (int h = 0; h < GRID_HEIGHT; h++) 
+        {
+            for (int w = 0; w < GRID_WIDTH; w++)
+            {
+                if (itemMap[w, h] == null) 
+                {
+                    print(selectedEquipCell.item);
+                    selectedItem = selectedEquipCell.item;
+                    set_cell_type(selectedItem);
+                    selectedItemRect = selectedItem.GetComponent<RectTransform>();
+                    selectedEquipCell.item = null;
+                    PlaceItem(selectedItem, w, h);
+                }
+            }
+        }
+        selectedItem = null;
+        selectedItemRect = null;
+        UIPanelManager.instance.CloseRightClickMenu();
+    }
+
+    private void set_cell_type(InventoryItem item) 
+    {
+        switch (item.type)
+        {
+            case CellType.ARMOUR:
+                selectedEquipCell = armorCell.GetComponent<GridCellComponent>();
+                break;
+            case CellType.HOOD:
+                selectedEquipCell = hoodCell.GetComponent<GridCellComponent>();
+                break;
+            case CellType.WEAPON:
+                selectedEquipCell = weaponCell.GetComponent<GridCellComponent>();
+                break;
+            default:
+                print("Leaked out in Inventory Grid > equip_item()\n");
+                break;
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData){activationTrigger = true;}

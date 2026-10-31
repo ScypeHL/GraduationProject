@@ -3,6 +3,7 @@ using UnityEngine;
 public class CharacterUI : MonoBehaviour
 {
     [SerializeField] UIPoolBar hpBar;
+    [SerializeField] UIPoolBar xpBar;
     Character character;
 
 
@@ -14,5 +15,6 @@ public class CharacterUI : MonoBehaviour
     private void Update()
     {
         hpBar.Show(character.GetStats(StatsType.Health));
+        xpBar.Show(character.GetStats(StatsType.XP));
     }
 }
