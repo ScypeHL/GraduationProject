@@ -142,9 +142,9 @@ public class InventoryGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public bool is_there_item(Vector3 mousePosition) 
     {
-        if (armorCell.GetComponent<GridCellComponent>().item != null) { return true; }
-        else if (hoodCell.GetComponent<GridCellComponent>().item != null) { return true; }
-        else if (weaponCell.GetComponent<GridCellComponent>().item != null) { return true; }
+        if (armorCell.GetComponent<GridCellComponent>().item != null) { selectedEquipCell = armorCell.GetComponent<GridCellComponent>(); return true; }
+        else if (hoodCell.GetComponent<GridCellComponent>().item != null) { selectedEquipCell = hoodCell.GetComponent<GridCellComponent>(); return true; }
+        else if (weaponCell.GetComponent<GridCellComponent>().item != null) { selectedEquipCell = weaponCell.GetComponent<GridCellComponent>(); return true; }
         else 
         {
             Vector2Int cell = GetCellPos(Input.mousePosition);
@@ -182,16 +182,15 @@ public class InventoryGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 {
                     print(selectedEquipCell.item);
                     selectedItem = selectedEquipCell.item;
-                    set_cell_type(selectedItem);
-                    selectedItemRect = selectedItem.GetComponent<RectTransform>();
                     selectedEquipCell.item = null;
                     PlaceItem(selectedItem, w, h);
+                    break;
                 }
             }
         }
         selectedItem = null;
-        selectedItemRect = null;
-        UIPanelManager.instance.CloseRightClickMenu();
+        state = InventoryGridState.DEFAULT;
+        UIPanelManager.instance.OpenRightClickMenu();
     }
 
     private void set_cell_type(InventoryItem item) 

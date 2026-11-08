@@ -15,13 +15,16 @@ public class AbilityHitboxController : MonoBehaviour
     Character character;
     Animate animate;
 
-    AbilityList abilities;
+    public AbilityList abilities;
     Ability ability;
 
+    private void Awake()
+    {
+        abilities = new AbilityList();
+    }
 
     void Start()
     {
-        abilities = new AbilityList();
         animate = GetComponentInParent<Animate>();
         character = GetComponentInParent<Character>();
         
@@ -34,6 +37,11 @@ public class AbilityHitboxController : MonoBehaviour
     private void Update() 
     {
         abilities.apply_cooldown_reduction();
+    }
+
+    public AbilityList get_abilities() 
+    {
+        return abilities;
     }
 
     public void ExecuteAbility(int id)
@@ -70,9 +78,7 @@ public class AbilityHitboxController : MonoBehaviour
         enemycharacter = collision.gameObject.GetComponent<Character>();
         if (collision.gameObject.GetComponent<PlayerInputs>() == null) 
         { 
-            enemycharacter.TakeDamage(
-                (int)(character.GetStats(StatsType.Damage).value * ability.damageScale), 
-                character.GetAttribute(AttributeType.Strenght).value); 
+            enemycharacter.TakeDamage(character, ability.damageScale);
         }
         collider.enabled = false;
     }

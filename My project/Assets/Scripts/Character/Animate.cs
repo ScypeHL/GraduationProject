@@ -1,4 +1,5 @@
 using System.Security.Cryptography.X509Certificates;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,6 +17,9 @@ public class Animate : MonoBehaviour
     Animator animator;
     NavMeshAgent agent;
     Character character;
+
+    AnimatorStateInfo animState;
+    public float time;
 
     private void Awake()
     {
@@ -43,12 +47,12 @@ public class Animate : MonoBehaviour
         animator.SetTrigger("attack");
     }
 
-    public bool is_playing(string name) 
+    public bool is_playing() 
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName(name)
-            && animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
-        {
-            return true;
-        } else return false;
+        animState = animator.GetCurrentAnimatorStateInfo(0);
+        time = animState.normalizedTime;
+        if (time > 1.0f) { time = 0f; return false; }
+        else if (time < 1.0f && time > 0f) return true;
+        return false;
     }
 }

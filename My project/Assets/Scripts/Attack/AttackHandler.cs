@@ -29,14 +29,12 @@ public class AttackHandler : MonoBehaviour
 
     private void Update()
     {
-        if (target != null && target.isDead == true)
+        if (target != null && target.isDead == false)
         {
-            character.add_xp(target);
         }
         AttackTimer();
         if (target != null && character.isDead == false)
         {
-            print(target.isDead);
             ProcessAttack();
         }
     }
@@ -57,7 +55,7 @@ public class AttackHandler : MonoBehaviour
 
             charMovenent.Stop();
 
-            target.TakeDamage(character.GetStats(StatsType.Damage).value, character.GetAttribute(AttributeType.Strenght).value);
+            target.TakeDamage(character, 1);
             animate.play_attack(AttackType.AUTO_ATTACK);
 
             target = null;

@@ -82,6 +82,16 @@ public class StatsGroup
     {
         statsValue[(int)targetStats].fvalue = value;
     }
+
+    internal void Add(StatsType targetStats, int value)
+    {
+        statsValue[(int)targetStats].value += value;
+    }
+
+    internal void Add(StatsType targetStats, float value)
+    {
+        statsValue[(int)targetStats].fvalue = value;
+    }
 }
 
 
@@ -99,6 +109,16 @@ public class AttributeGroup
     internal Attribute Get(AttributeType type)
     {
         return attributeValues[(int)type];
+    }
+
+    internal void Set(AttributeType type, int value)
+    {
+        attributeValues[(int)type].value = value;
+    }
+
+    internal void Add(AttributeType type, int value)
+    {
+        attributeValues[(int)type].value += value;
     }
 }
 
@@ -122,21 +142,28 @@ public class Character : MonoBehaviour
         statsGroup = new StatsGroup(Health, Damage, Armor, AttackSpeed, MoveSpeed, XP);
     }
 
-    public void TakeDamage(int damage, int strength) 
+    private void Update()
     {
-        int totalDamage = Math.Clamp(damage + strength - statsGroup.statsValue[(int)StatsType.Armor].value, 1, 9999);
-        statsGroup.statsValue[(int)StatsType.Health].value -= totalDamage;
-        IsDead();
+        if (isDead && GetComponent<Animate>().is_playing())
+        {
+
+        }
     }
 
-    private void IsDead() 
+    public void TakeDamage(Character character, float scaling)
+    {
+        int totalDamage = (int)(Math.Clamp(character.GetStats(StatsType.Damage).value + character.GetAttribute(AttributeType.Strenght).value - statsGroup.statsValue[(int)StatsType.Armor].value, 1, 9999) * scaling);
+        statsGroup.statsValue[(int)StatsType.Health].value -= totalDamage;
+        IsDead(character);
+    }
+
+    private void IsDead(Character character) 
     {
         if (GetStats(StatsType.Health).value <= 0) 
         {
             isDead = true;
+            character.AddToStats(StatsType.XP, GetStats(StatsType.XP).value);
             GetComponent<CharacterDeathHandler>().Disable();
-            while (GetComponent<Animate>().is_playing("Death")) print("waiting for death\n");
-            if (GetComponent<PlayerInputs>() == null) Destroy(gameObject);
         }
     }
 
@@ -149,13 +176,19 @@ public class Character : MonoBehaviour
     public void add_xp(Character target)
     {
         statsGroup.statsValue[(int)StatsType.XP].value += target.statsGroup.statsValue[(int)StatsType.XP].value;
-        print(GetStats(StatsType.XP).value);
         if (GetStats(StatsType.XP).value > GetStats(StatsType.XP).maxValue) 
         {
             statsGroup.statsValue[(int)StatsType.XP].value = 0;
         }
+        print(GetStats(StatsType.XP).value);
     }
 
     public Stats GetStats(StatsType type) { return statsGroup.Get(type); }
     public Attribute GetAttribute(AttributeType type) { return attributes.Get(type); }
+
+    public void SetStats(StatsType type, int value) { statsGroup.Set(type, value); }
+    public void SetAttribute(AttributeType type, int value) { attributes.Set(type, value); }
+
+    public void AddToStats(StatsType type, int value) { statsGroup.Add(type, value); }
+    public void AddToAttribute(AttributeType type, int value) { attributes.Add(type, value); }
 }
