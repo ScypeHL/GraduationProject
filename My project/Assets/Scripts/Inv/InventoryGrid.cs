@@ -19,7 +19,7 @@ public class InventoryGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     int GRID_WIDTH = 10;
     int GRID_HEIGHT = 5;
 
-    bool activationTrigger;
+    public bool activationTrigger;
 
     RectTransform rectTransform;
     Vector2 mouseGridPos;

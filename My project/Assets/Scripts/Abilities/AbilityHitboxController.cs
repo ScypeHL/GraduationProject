@@ -20,7 +20,7 @@ public class AbilityHitboxController : MonoBehaviour
 
     private void Awake()
     {
-        abilities = new AbilityList();
+        abilities = new AbilityList("Melee");
     }
 
     void Start()
@@ -49,16 +49,16 @@ public class AbilityHitboxController : MonoBehaviour
         switch (id)
         {
             case 1:
-                ability = abilities.melee_ab1;
+                ability = abilities.ab1;
                 break;
             case 2:
-                ability = abilities.melee_ab2;
+                ability = abilities.ab2;
                 break;
             case 3:
-                ability = abilities.melee_ab3;
+                ability = abilities.ab3;
                 break;
             case 4:
-                ability = abilities.melee_ab4;
+                ability = abilities.ab4;
                 break;
         }
         if (ability.cooldownRemain <= 0)
@@ -74,11 +74,10 @@ public class AbilityHitboxController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(ability.name);
         enemycharacter = collision.gameObject.GetComponent<Character>();
         if (collision.gameObject.GetComponent<PlayerInputs>() == null) 
         { 
-            enemycharacter.TakeDamage(character, ability.damageScale);
+            enemycharacter.TakeDamage(character, ability.damageScale + ability.damageScaleUpgrade * (ability.level - 1));
         }
         collider.enabled = false;
     }

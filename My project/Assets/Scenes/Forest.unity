@@ -594,6 +594,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCBehaviour
   text: {fileID: 0}
   isInteracting: 0
+  index: 0
+  questHoldingID: 0
+  path: 
 --- !u!1001 &935083443
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -873,7 +876,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   enemyToSpawn: {fileID: 7597793414072369994}
   rangeWindow: 3
-  amount: 3
+  amount: 4
 --- !u!4 &1556129627
 Transform:
   m_ObjectHideFlags: 0
@@ -1065,6 +1068,7 @@ MonoBehaviour:
   Armor: 0
   AttackSpeed: 4
   MoveSpeed: 3
+  XP: 0
 --- !u!136 &1943302968897180381
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1135,6 +1139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0e9aa04eccb124a9b453d9e717ea3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Animate
+  time: 0
 --- !u!4 &5882334334686438966
 Transform:
   m_ObjectHideFlags: 0
@@ -1165,6 +1170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   attackRange: 1
   attackTime: 2
+  target: {fileID: 0}
 --- !u!1 &7597793414072369994
 GameObject:
   m_ObjectHideFlags: 0

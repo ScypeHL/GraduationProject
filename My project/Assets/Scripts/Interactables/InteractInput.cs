@@ -70,7 +70,7 @@ public class InteractInput : MonoBehaviour
         }
         else 
         {
-            hpBar.Clear();
+            // hpBar.Clear();
         }
     }
 }

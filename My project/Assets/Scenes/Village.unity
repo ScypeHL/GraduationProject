@@ -300,6 +300,7 @@ MonoBehaviour:
   text: {fileID: 0}
   isInteracting: 0
   index: 0
+  questHoldingID: -1
   path: Assets\Scripts\NPC\Villager2Dialogue.txt
 --- !u!4 &336377285 stripped
 Transform:
@@ -685,6 +686,7 @@ MonoBehaviour:
   text: {fileID: 0}
   isInteracting: 0
   index: 0
+  questHoldingID: 4
   path: Assets\Scripts\NPC\VillagerF4Dialogue.txt
 --- !u!4 &747143121 stripped
 Transform:
@@ -1315,6 +1317,7 @@ MonoBehaviour:
   text: {fileID: 0}
   isInteracting: 0
   index: 0
+  questHoldingID: 1
   path: Assets\Scripts\NPC\Villager3Dialogue.txt
 --- !u!4 &1163137653 stripped
 Transform:
@@ -1512,6 +1515,7 @@ MonoBehaviour:
   text: {fileID: 0}
   isInteracting: 0
   index: 0
+  questHoldingID: 2
   path: Assets\Scripts\NPC\Villager1Dialogue.txt
 --- !u!4 &1693387968 stripped
 Transform:
@@ -1637,6 +1641,7 @@ MonoBehaviour:
   text: {fileID: 0}
   isInteracting: 0
   index: 0
+  questHoldingID: -1
   path: Assets\Scripts\NPC\VillagerF3Dialogue.txt
 --- !u!4 &1771062110 stripped
 Transform:

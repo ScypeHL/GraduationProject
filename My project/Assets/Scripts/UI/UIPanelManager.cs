@@ -26,13 +26,14 @@ public class UIPanelManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L)) { OpenQuestPanel(); }
     }
 
-    public void OpenInventoryPanel() { invPanel.SetActive(!invPanel.activeInHierarchy); questPanel.SetActive(false); }
+    public void OpenInventoryPanel() { invPanel.SetActive(!invPanel.activeInHierarchy); questPanel.SetActive(false); invGrid.activationTrigger = !invGrid.activationTrigger; }
     public void OpenStatPanel() { statPanel.SetActive(!statPanel.activeInHierarchy); }
     public void OpenQuestPanel() { questPanel.SetActive(!questPanel.activeInHierarchy); invPanel.SetActive(false); }
     public void OpenTextBubble() { textBubble.SetActive(!textBubble.activeInHierarchy); }
     
     public void OpenRightClickMenu() 
     {
+        if (!invGrid.activationTrigger) return;
         if (invGrid.state == InventoryGridState.DEFAULT)
         {/*
             if (invGrid.weaponCell.GetComponent<GridCellComponent>().interact()) 

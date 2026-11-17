@@ -30,7 +30,7 @@ public class CharacterDeathHandler : MonoBehaviour
         character = GetComponent<Character>();
     }
 
-    public void Disable(){ SetState(false); }
+    public void Disable(){ QuestManager.instance.deposit_kill(gameObject.name); SetState(false); }
     public void Enable(){ SetState(true); }
 
     private void SetState(bool state) 

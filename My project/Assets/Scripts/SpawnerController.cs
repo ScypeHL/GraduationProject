@@ -21,6 +21,7 @@ public class SpawnerController : MonoBehaviour
                             transform.position.y, 
                             transform.position.z + Random.Range(-rangeWindow, rangeWindow)),
                 Quaternion.identity);
+            newEnemy.name = "Bee";
         }
     }
 }

@@ -17,6 +17,7 @@ public class CharacterMovement : MonoBehaviour
     private void Update()
     {
         agent.speed = character.GetStats(StatsType.MoveSpeed).fvalue;
+        agent.angularSpeed = 360f;
         /*
         if (Input.GetMouseButtonDown(0))
         {

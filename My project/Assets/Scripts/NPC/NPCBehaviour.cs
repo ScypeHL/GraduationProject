@@ -10,6 +10,7 @@ public class NPCBehaviour : MonoBehaviour
     [SerializeField] TextMeshProUGUI text; 
     [HideInInspector] public bool isInteracting = false;
     public int index = 0;
+    public int questHoldingID;
 
     [SerializeField] string path;
     private string file;
@@ -27,6 +28,7 @@ public class NPCBehaviour : MonoBehaviour
         tokens = file.Split('@');
         text = GameManager.instance.GetComponent<UIPanelManager>().textBubble.GetComponentInChildren<TextMeshProUGUI>();
         text.text = "";
+        index++;
     }
 
     private void Update()
@@ -45,6 +47,15 @@ public class NPCBehaviour : MonoBehaviour
             GameManager.instance.GetComponent<UIPanelManager>().OpenTextBubble();
             index = 0;
             isInteracting = false;
+            trigger_new_quest();
+        }
+    }
+
+    public void trigger_new_quest() 
+    {
+        if (questHoldingID >= 0) 
+        {
+            QuestManager.instance.end_quest(questHoldingID);
         }
     }
 

@@ -10,7 +10,9 @@ public enum StatsType
     Armor,
     AttackSpeed,
     MoveSpeed,
-    XP
+    XP,
+    Level,
+    UpgradePoint
 }
 
 [Serializable]
@@ -66,6 +68,8 @@ public class StatsGroup
         statsValue.Add(new Stats(StatsType.AttackSpeed, attackSpeed));
         statsValue.Add(new Stats(StatsType.MoveSpeed, moveSpeed));
         statsValue.Add(new Stats(StatsType.XP, xp, 100));
+        statsValue.Add(new Stats(StatsType.Level, 1, 100));
+        statsValue.Add(new Stats(StatsType.UpgradePoint, 0));
     }
 
     internal Stats Get(StatsType targetStats) 
@@ -180,7 +184,18 @@ public class Character : MonoBehaviour
         {
             statsGroup.statsValue[(int)StatsType.XP].value = 0;
         }
-        print(GetStats(StatsType.XP).value);
+    }
+
+    public void add_xp(int value)
+    {
+        statsGroup.statsValue[(int)StatsType.XP].value += value;
+        if (GetStats(StatsType.XP).value > GetStats(StatsType.XP).maxValue)
+        {
+            statsGroup.statsValue[(int)StatsType.XP].value -= 100;
+            statsGroup.statsValue[(int)StatsType.XP].maxValue += 20;
+            statsGroup.statsValue[(int)StatsType.Level].value++;
+            statsGroup.statsValue[(int)StatsType.UpgradePoint].value++;
+        }
     }
 
     public Stats GetStats(StatsType type) { return statsGroup.Get(type); }
