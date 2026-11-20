@@ -18,6 +18,8 @@ public class Animate : MonoBehaviour
     NavMeshAgent agent;
     Character character;
 
+    [SerializeField] GameObject ability1Effect;
+
     AnimatorStateInfo animState;
     public float time;
 
@@ -26,10 +28,15 @@ public class Animate : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
         character = GetComponent<Character>();
+        if(GetComponentInParent<PlayerInputs>() != null) ability1Effect.SetActive(false);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
+        if (GetComponentInParent<PlayerInputs>() != null && ability1Effect.activeSelf) 
+        {
+            if (!is_playing(ability1Effect.GetComponent<Animator>())) { ability1Effect.SetActive(false);}
+        }
         if (character.isDead == false)
         {
             float motion = agent.velocity.magnitude;
@@ -45,11 +52,12 @@ public class Animate : MonoBehaviour
     {
         animator.SetInteger("attackID", (int)type);
         animator.SetTrigger("attack");
+        if (GetComponentInParent<PlayerInputs>() != null && (int)type == 1) ability1Effect.SetActive(true);
     }
 
-    public bool is_playing() 
+    public bool is_playing(Animator _animator) 
     {
-        animState = animator.GetCurrentAnimatorStateInfo(0);
+        animState = _animator.GetCurrentAnimatorStateInfo(0);
         time = animState.normalizedTime;
         if (time > 1.0f) { time = 0f; return false; }
         else if (time < 1.0f && time > 0f) return true;

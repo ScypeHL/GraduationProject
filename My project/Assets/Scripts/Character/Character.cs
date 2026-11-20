@@ -147,11 +147,11 @@ public class Character : MonoBehaviour
     }
 
     private void Update()
-    {
+    {/*
         if (isDead && GetComponent<Animate>().is_playing())
         {
 
-        }
+        }*/
     }
 
     public void TakeDamage(Character character, float scaling)

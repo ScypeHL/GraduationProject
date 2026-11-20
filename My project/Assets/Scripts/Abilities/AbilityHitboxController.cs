@@ -4,6 +4,8 @@ using System.Linq.Expressions;
 using Unity.VisualScripting;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.UIElements;
 using static AbilityList;
 using static Animate;
 
@@ -18,9 +20,13 @@ public class AbilityHitboxController : MonoBehaviour
     public AbilityList abilities;
     Ability ability;
 
+    [SerializeField] GameObject markerObject;
+    GameObject marker;
+
     private void Awake()
     {
         abilities = new AbilityList("Melee");
+        marker = gameObject.transform.GetChild(0).GetChild(0).gameObject;
     }
 
     void Start()
@@ -44,32 +50,68 @@ public class AbilityHitboxController : MonoBehaviour
         return abilities;
     }
 
-    public void ExecuteAbility(int id)
+    public Ability get_ability(int id) 
     {
         switch (id)
         {
             case 1:
-                ability = abilities.ab1;
-                break;
+                return abilities.ab1;
             case 2:
-                ability = abilities.ab2;
-                break;
+                return abilities.ab2;
             case 3:
-                ability = abilities.ab3;
-                break;
+                return abilities.ab3;
             case 4:
-                ability = abilities.ab4;
+                return abilities.ab4;
+            default:
                 break;
         }
+        return null;
+    }
+
+    public void ExecuteAbility(int id)
+    {
         if (ability.cooldownRemain <= 0)
         {
+            ability = get_ability(id);
             animate.play_attack((AttackType)id);
 
             abilities.set_cooldown_remain(ability);
             collider.size = new Vector3(ability.w, collider.size.y, ability.h);
-            collider.center = new Vector3(collider.center.x, collider.size.y, ability.h / 2);
+            collider.center = new Vector3(collider.center.x, collider.center.y, ability.h / 2);
             collider.enabled = true;
+            /*if(id == 4) character.gameObject.transform.position = new Vector3(
+                character.gameObject.transform.localPosition.x + 1,
+                character.gameObject.transform.position.y,
+                character.gameObject.transform.position.z);*/
         }
+        marker.SetActive(false);
+    }
+
+    public void show_marker(int id) 
+    {
+        Vector3 diff = MouseInput.instance.mouseInputPos - character.transform.position;
+        float angle;
+        angle = Mathf.Atan2(diff.z, diff.x);
+        angle = angle / Mathf.PI * 180;
+
+        //Quaternion rotation = Quaternion.LookRotation(diff, Vector3.right);
+        //markerObject.transform.localRotation = rotation;
+        //hitboxMarker.transform.Rotate(0, 0, rotation.z, Space.Self);
+        gameObject.transform.rotation = Quaternion.Euler(0, -angle + 90, 0);
+        print(angle);
+
+        ability = get_ability(id);
+        marker.gameObject.SetActive(true);
+        marker.transform.localScale = new Vector3(ability.w, ability.h, 1);
+        marker.transform.localPosition = new Vector3(
+            marker.transform.localPosition.x,
+            ability.h / 2,
+            marker.transform.localPosition.z);
+    }
+
+    public void hide_marker() 
+    {
+        marker.SetActive(false);
     }
 
     void OnCollisionEnter(Collision collision)

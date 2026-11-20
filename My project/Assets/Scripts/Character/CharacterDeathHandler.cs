@@ -8,7 +8,6 @@ public class CharacterDeathHandler : MonoBehaviour
     EnemyBehaviour enemyAI;
     Collider collider;
     
-    [SerializeField] bool isPlayer = false;
     [SerializeField] GameObject deathScreen;
 
     AttackInput attackInput;

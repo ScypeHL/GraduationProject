@@ -13,6 +13,8 @@ public class PlayerInputs : MonoBehaviour
     public static PlayerInputs instance;
     public event Action onRightClick;
 
+    private bool abilityTrigger = false;
+
     private void Awake()
     {
         instance = this;
@@ -28,6 +30,7 @@ public class PlayerInputs : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             onRightClick?.Invoke();
+            abilityTrigger = false;
         }
         if (EventSystem.current.IsPointerOverGameObject()) { return; }
         if (Input.GetMouseButtonDown(0))
@@ -47,10 +50,18 @@ public class PlayerInputs : MonoBehaviour
             interactHandler.interactedObject = null;
             charMovInput.MoveCharacter(); 
         }
-        if (Input.GetKeyDown(KeyCode.Q)) { hitbox.ExecuteAbility(1); }
-        if (Input.GetKeyDown(KeyCode.W)) { }
-        if (Input.GetKeyDown(KeyCode.E)) { hitbox.ExecuteAbility(3); }
-        if (Input.GetKeyDown(KeyCode.R)) { hitbox.ExecuteAbility(4); }
 
+        if (Input.GetKey(KeyCode.Q)) { hitbox.show_marker(1); abilityTrigger = true; }
+        if (Input.GetKey(KeyCode.W)) //{ hitbox.show_marker(1); }
+        if (Input.GetKey(KeyCode.E)) { hitbox.show_marker(3); abilityTrigger = true; }
+        if (Input.GetKey(KeyCode.R)) { hitbox.show_marker(4); abilityTrigger = true; }
+
+        if (abilityTrigger == true)
+        {
+            if (Input.GetKeyUp(KeyCode.Q)) { hitbox.ExecuteAbility(1); }
+            if (Input.GetKeyUp(KeyCode.W)) { hitbox.ExecuteAbility(2); }
+            if (Input.GetKeyUp(KeyCode.E)) { hitbox.ExecuteAbility(3); }
+            if (Input.GetKeyUp(KeyCode.R)) { hitbox.ExecuteAbility(4); }
+        }
     }
 }

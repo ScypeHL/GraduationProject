@@ -59,7 +59,6 @@ public class QuestManager : MonoBehaviour
     public static QuestManager instance;
 
     List<Quest> arc1quests;
-    int questIndex;
 
     private void Start()
     {
@@ -67,7 +66,6 @@ public class QuestManager : MonoBehaviour
         arc1quests = new List<Quest>();
         instance = this;
 
-        questIndex = 0;
         arc1quests.Add(new Quest(
             "Searching the Hero!", 
             "Look for the Hero", 

@@ -10,6 +10,8 @@ public class UIPanelManager : MonoBehaviour
     [SerializeField] GameObject rightClickMenu;
     public GameObject textBubble;
     [SerializeField] InventoryGrid invGrid;
+    public GameObject detailPanel;
+    
     public static UIPanelManager instance;
 
     private void Start()

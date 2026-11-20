@@ -47,7 +47,7 @@ public class AbilityList
     public Ability ab3;
     public Ability ab4;
 
-    public Ability melee_ab1 = new Ability("Forward Poke", "Attack forward linearly", 1, 4, 2f, 0.2f, 8, 0.2f, 3);
+    public Ability melee_ab1 = new Ability("Forward Poke", "Attack forward linearly", 1, 3, 2f, 0.2f, 8, 0.2f, 3);
     public Ability melee_ab2 = new Ability("Attack Boost", "Increases the attack damage for 10 seconds", 0, 0, 1.2f, 0.4f, 70, 4, 5);
     public Ability melee_ab3 = new Ability("Sweet Sweep", "Spinning strike that deals good damage to surrounding elements", 3, 1, 1.2f, 0.05f, 30, 2, 5);
     public Ability melee_ab4 = new Ability("Dash Slash", "Long range linear attak", 3, 10, 4f, 0.5f, 120, 10, 10);
