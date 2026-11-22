@@ -8,6 +8,7 @@ public class UIPanelManager : MonoBehaviour
     [SerializeField] GameObject questPanel;
     [SerializeField] GameObject statPanel;
     [SerializeField] GameObject rightClickMenu;
+    [SerializeField] GameObject merchantPanel;
     public GameObject textBubble;
     [SerializeField] InventoryGrid invGrid;
     public GameObject detailPanel;
@@ -32,7 +33,8 @@ public class UIPanelManager : MonoBehaviour
     public void OpenStatPanel() { statPanel.SetActive(!statPanel.activeInHierarchy); }
     public void OpenQuestPanel() { questPanel.SetActive(!questPanel.activeInHierarchy); invPanel.SetActive(false); }
     public void OpenTextBubble() { textBubble.SetActive(!textBubble.activeInHierarchy); }
-    
+    public void OpenMerchantPanel() { merchantPanel.SetActive(!merchantPanel.activeInHierarchy); invPanel.SetActive(false); questPanel.SetActive(false); }
+
     public void OpenRightClickMenu() 
     {
         if (!invGrid.activationTrigger) return;

@@ -3,7 +3,17 @@ guid: 4c41e7dd0df4a8849af6df60fcd3d667
 ModelImporter:
   serializedVersion: 24600
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BeeTexture
+    second: {fileID: 2100000, guid: 7254a44d32d84bc46abb4e208bedaf5d, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: BeeTexture
+    second: {fileID: 2800000, guid: 6ec1bf6ffab021b44a7d64a0a20e60bf, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

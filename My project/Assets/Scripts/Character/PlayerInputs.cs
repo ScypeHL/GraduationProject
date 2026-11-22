@@ -48,7 +48,10 @@ public class PlayerInputs : MonoBehaviour
             }
 
             interactHandler.interactedObject = null;
-            charMovInput.MoveCharacter(); 
+            charMovInput.MoveCharacter();
+            MouseInput.instance.moveMarker.SetActive(false);
+            MouseInput.instance.moveMarker.SetActive(true);
+            MouseInput.instance.moveMarker.transform.position = MouseInput.instance.mouseInputPos;
         }
 
         if (Input.GetKey(KeyCode.Q)) { hitbox.show_marker(1); abilityTrigger = true; }
@@ -60,7 +63,7 @@ public class PlayerInputs : MonoBehaviour
         {
             if (Input.GetKeyUp(KeyCode.Q)) { hitbox.ExecuteAbility(1); }
             if (Input.GetKeyUp(KeyCode.W)) { hitbox.ExecuteAbility(2); }
-            if (Input.GetKeyUp(KeyCode.E)) { hitbox.ExecuteAbility(3); }
+            if (Input.GetKeyUp(KeyCode.E)) { hitbox.ExecuteAbility(3); print("hellow"); }
             if (Input.GetKeyUp(KeyCode.R)) { hitbox.ExecuteAbility(4); }
         }
     }

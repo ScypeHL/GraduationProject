@@ -10,7 +10,8 @@ public class DetailPanelController : MonoBehaviour
 
     [SerializeField] GameObject statsPanel;
     [SerializeField] GameObject hud;
-    
+    [SerializeField] InventoryGrid invGrid;
+
     AbilityUpgradeSlot[] comps;
 
     [SerializeField] Character playerCharacter;
@@ -40,6 +41,18 @@ public class DetailPanelController : MonoBehaviour
                 return;
             }
         }
+        if (invGrid.activationTrigger) 
+        {
+            if (invGrid.is_there_item(Input.mousePosition)) 
+            {
+                show();
+                InventoryItem temp = invGrid.itemMap[invGrid.selectedCell.x, invGrid.selectedCell.y];
+                title.text = temp.name;
+                description.text = temp.description;
+                move_panel();
+                return;
+            }
+        }
         hide();
     }
 
@@ -54,6 +67,7 @@ public class DetailPanelController : MonoBehaviour
         gameObject.GetComponent<CanvasRenderer>().SetAlpha(0);
         description.GetComponent<CanvasRenderer>().SetAlpha(0);
         title.GetComponent<CanvasRenderer>().SetAlpha(0);
+        gameObject.transform.position = new Vector3(1920, 1080, 0);
     }
 
     public void show()

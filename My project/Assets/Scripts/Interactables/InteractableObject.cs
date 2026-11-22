@@ -8,7 +8,8 @@ public enum InteractableObjectType
     POTION,
     MONEY,
     PORTAL,
-    NPC
+    NPC,
+    MERCHANT
 }
 
 public class InteractableObject : MonoBehaviour
@@ -42,6 +43,9 @@ public class InteractableObject : MonoBehaviour
                     panelManager.OpenTextBubble();
                     npcBehaviour.Story();
                 }
+                break;
+            case InteractableObjectType.MERCHANT:
+                GameManager.instance.GetComponent<UIPanelManager>().OpenMerchantPanel();
                 break;
         }
     }

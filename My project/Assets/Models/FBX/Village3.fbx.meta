@@ -5,6 +5,51 @@ ModelImporter:
   internalIDToNameTable: []
   externalObjects:
   - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DoorWindowMaterial
+    second: {fileID: 2100000, guid: 9cb53658652284d479125e13172b188b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FarmMaterial
+    second: {fileID: 2100000, guid: 94820dae537229441b66412bbd950864, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FenceMaterial
+    second: {fileID: 2100000, guid: d7432f331912a004898a626af34ceb3f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GrassGroundMaterial
+    second: {fileID: 2100000, guid: eb1024319a3a1d4489c366f7026961ec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GrassGroundMaterial.001
+    second: {fileID: 2100000, guid: b1fa768a15201f940a37fd408a6f1026, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HouseMaterial
+    second: {fileID: 2100000, guid: e0167867b143bc046b8e9ea48ea958ab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: IndividualGrassMaterial
+    second: {fileID: 2100000, guid: 705206dfed28d7f4c837864a1597d4fb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RoofMaterial
+    second: {fileID: 2100000, guid: 96727f0fa38edae479a0c80fb622cf04, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TreeMaterial
+    second: {fileID: 2100000, guid: 8deacfe960cdff04d8a79860985b9958, type: 2}
+  - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: PlayerSectionColouring

@@ -25,7 +25,7 @@ public class InventoryGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     Vector2 mouseGridPos;
 
     [SerializeField] RectTransform highlight;
-    Vector2Int selectedCell;
+    public Vector2Int selectedCell;
     InventoryItem selectedItem;
     RectTransform selectedItemRect;
 
@@ -36,8 +36,8 @@ public class InventoryGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public GameObject hoodCell;
     GridCellComponent selectedEquipCell;
 
-    InventoryItem[,] itemMap;
-    [SerializeField] List<GameObject> itemPrefab;
+    public InventoryItem[,] itemMap;
+    public List<GameObject> itemPrefab;
 
 
     private void Awake()
@@ -148,8 +148,9 @@ public class InventoryGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         else 
         {
             Vector2Int cell = GetCellPos(Input.mousePosition);
+            if (!IsWithinBoundry(cell.x, cell.y)) { return false; }
             if (itemMap[cell.x, cell.y] != null) { selectedCell = GetCellPos(Input.mousePosition); return true; }
-            else { selectedCell = GetCellPos(Input.mousePosition); return false; }
+            else { return false; }
         }
     }
 
@@ -165,6 +166,7 @@ public class InventoryGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             1);
         
         selectedEquipCell.item = selectedItem;
+        selectedEquipCell.apply_item_stats();
         print(selectedEquipCell.item);
 
         selectedItem = null;
@@ -182,9 +184,10 @@ public class InventoryGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 {
                     print(selectedEquipCell.item);
                     selectedItem = selectedEquipCell.item;
+                    selectedEquipCell.remove_item_stats();
                     selectedEquipCell.item = null;
                     PlaceItem(selectedItem, w, h);
-                    break;
+                    return;
                 }
             }
         }

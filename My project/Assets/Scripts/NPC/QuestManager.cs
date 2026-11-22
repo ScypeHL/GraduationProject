@@ -143,7 +143,7 @@ public class QuestManager : MonoBehaviour
         {
             if (arc1quests[i].targetName == name) 
             { 
-                print(arc1quests[i].title); 
+                if(!arc1quests[i].isActive) return;
                 arc1quests[i].killCount++;
                 if (arc1quests[i].killCount >= arc1quests[i].killRequired)
                 {

@@ -91,8 +91,11 @@ MonoBehaviour:
   OCCUPYING_WIDTH: 0
   OCCUPYING_HEIGHT: 0
   type: 2
-  attack: 0
+  name: Basic Sword
+  description: Handcrafted iron sword. Decent way to start.
+  attack: 10
   health: 0
   defence: 0
   attack_speed: 0
   movement_speed: 0
+  isHovering: 0

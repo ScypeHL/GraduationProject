@@ -72,29 +72,39 @@ public class StatsGroup
         statsValue.Add(new Stats(StatsType.UpgradePoint, 0));
     }
 
-    internal Stats Get(StatsType targetStats) 
+    internal Stats Get(StatsType type) 
     {
-        return statsValue[(int)targetStats];
+        return statsValue[(int)type];
     }
 
-    internal void Set(StatsType targetStats, int value) 
+    internal void Set(StatsType type, int value) 
     {
-         statsValue[(int)targetStats].value = value;
+         statsValue[(int)type].value = value;
     }
 
-    internal void Set(StatsType targetStats, float value)
+    internal void Set(StatsType type, float value)
     {
-        statsValue[(int)targetStats].fvalue = value;
+        statsValue[(int)type].fvalue = value;
     }
 
-    internal void Add(StatsType targetStats, int value)
+    internal void Add(StatsType type, int value)
     {
-        statsValue[(int)targetStats].value += value;
+        statsValue[(int)type].value += value;
     }
 
-    internal void Add(StatsType targetStats, float value)
+    internal void Add(StatsType type, float value)
     {
-        statsValue[(int)targetStats].fvalue = value;
+        statsValue[(int)type].fvalue += value;
+    }
+
+    internal void Remove(StatsType type, int value) 
+    {
+        statsValue[(int)type].value -= value;
+    }
+
+    internal void Remove(StatsType type, float value)
+    {
+        statsValue[(int)type].fvalue -= value;
     }
 }
 
@@ -206,4 +216,6 @@ public class Character : MonoBehaviour
 
     public void AddToStats(StatsType type, int value) { statsGroup.Add(type, value); }
     public void AddToAttribute(AttributeType type, int value) { attributes.Add(type, value); }
+
+    public void RemoveFromStats(StatsType type, int value) { statsGroup.Remove(type, value); }
 }

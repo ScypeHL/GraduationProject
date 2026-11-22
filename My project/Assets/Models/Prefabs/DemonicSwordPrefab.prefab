@@ -91,8 +91,11 @@ MonoBehaviour:
   OCCUPYING_WIDTH: 0
   OCCUPYING_HEIGHT: 0
   type: 2
-  attack: 0
-  health: 0
+  name: Demonic Sword
+  description: A sword forged with blood and hatred always knows the way to death!
+  attack: 30
+  health: 20
   defence: 0
-  attack_speed: 0
-  movement_speed: 0
+  attack_speed: 0.1
+  movement_speed: 1
+  isHovering: 0

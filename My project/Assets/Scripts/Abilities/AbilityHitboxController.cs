@@ -36,7 +36,7 @@ public class AbilityHitboxController : MonoBehaviour
         
         collider = GetComponent<BoxCollider>();
         collider.size = new Vector3(1f, 2f, 1f);
-        collider.center = new Vector3(-0.15f, 0f, 1f);
+        collider.center = new Vector3(0, 0f, 0);
         collider.enabled = false;
     }
 

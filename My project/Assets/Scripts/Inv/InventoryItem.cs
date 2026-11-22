@@ -8,27 +8,30 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public CellType type;
 
+    public string name;
+    public string description;
+
     public int attack;
     public int health;
     public int defence;
-    public int attack_speed;
-    public int movement_speed;
+    public float attack_speed;
+    public float movement_speed;
 
-    public bool isMouseHoverinOnto;
+    public bool isHovering;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        isMouseHoverinOnto = true;
+        isHovering = true;
     }
 
     public InventoryItem return_self_if_interacted()
     {
-        if (isMouseHoverinOnto) { return gameObject.GetComponent<InventoryItem>(); }
+        if (isHovering) { return gameObject.GetComponent<InventoryItem>(); }
         else return null;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        isMouseHoverinOnto = false;
+        isHovering = false;
     }
 }
